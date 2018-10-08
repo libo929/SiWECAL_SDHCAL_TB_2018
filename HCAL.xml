@@ -1,0 +1,110 @@
+<!--
+    HCAL parameters for testbeam
+-->
+
+
+<lccdd>
+  <define>
+    <constant name="env_safety" value="0.001*mm"/>
+
+    <constant name="Hcal_NcellsX" value="96" />
+    <constant name="Hcal_NcellsY" value="96" />
+    <constant name="Hcal_CellSizeX" value="10.406*mm" />
+    <constant name="Hcal_CellSizeY" value="10.406*mm" />
+    <constant name="Hcal_NLayers" value="37"/>
+
+    <constant name="Hcal_radiator_thickness"         value="15.0*mm"/>
+    <constant name="Hcal_g10_thickness"              value="1.4*mm"/>
+    <constant name="Hcal_electronics_mask_thickness" value="1.6*mm"/>
+    <constant name="Hcal_PCB_thickness"              value="1.2*mm"/>
+    <constant name="Hcal_mylar_anode_thickness"      value="0.05*mm"/>
+    <constant name="Hcal_mylar_cathode_thickness"    value="0.175*mm"/>
+    <constant name="Hcal_graphite_cathode_thickness" value="0.05*mm"/>
+    <constant name="Hcal_graphite_anode_thickness"   value="0.05*mm"/>
+    <constant name="Hcal_glass_cathode_thickness"    value="1.1*mm"/>
+    <constant name="Hcal_glass_anode_thickness"      value="0.7*mm"/>
+    <constant name="Hcal_gas_gap"                    value="1.2*mm"/>
+    <constant name="Hcal_tb_airgap_thickness"        value="1.0*mm" />
+    <constant name="Hcal_steel_casette_thickness"    value="2.5*mm" />
+
+    <constant name="Hcal_LayerThickness"
+              value="Hcal_radiator_thickness +
+                     Hcal_tb_airgap_thickness +
+                     Hcal_steel_casette_thickness +
+                     Hcal_electronics_mask_thickness +
+                     Hcal_PCB_thickness +
+                     Hcal_mylar_anode_thickness +
+                     Hcal_graphite_anode_thickness +
+                     Hcal_glass_anode_thickness +
+                     Hcal_gas_gap +
+                     Hcal_glass_cathode_thickness +
+                     Hcal_graphite_cathode_thickness +
+                     Hcal_mylar_cathode_thickness +
+                     Hcal_steel_casette_thickness +
+                     Hcal_tb_airgap_thickness"/>
+
+    <constant name="Hcal_dim_x" value="Hcal_NcellsX*Hcal_CellSizeX"/>
+    <constant name="Hcal_dim_y" value="Hcal_NcellsY*Hcal_CellSizeY"/>
+    <constant name="Hcal_dim_z" value="Hcal_NLayers*Hcal_LayerThickness + Hcal_radiator_thickness"/>
+
+  </define>
+
+  <readouts>
+    <readout name="SDHcalCollection">
+      <segmentation type="TiledLayerGridXY"
+                    grid_size_x="Hcal_CellSizeX" grid_size_y="Hcal_CellSizeY"
+                    offset_x="-Hcal_dim_x/2.0" offset_y="-Hcal_dim_y/2.0"
+                    identifier_x="I" identifier_y="J" identifier_layer="K"/>
+
+      <!--  identifier_dif="tower"/ -->
+      <!-- id>system:8,I:8,J:8,layer:8,tower:2</id -->
+      <!-- id>system:8,I:8,J:8,layer:8,tower:2</id -->
+
+      <id>system:8,K:8,slice:4,I:8,J:8</id>
+
+    </readout>
+  </readouts>
+
+  <detectors>
+
+    <detector name="HcalTestBeam" type="CaloPrototype_v02" vis="InVis" id="4"
+              readout="SDHcalCollection" insideTrackingVolume="false">
+
+      <dimensions x="Hcal_dim_x" y="Hcal_dim_y" z="Hcal_dim_z"/>
+
+      <common_parameters frontFaceZ="Hcal_FrontFaceZ" nCellsX="Hcal_NcellsX" nCellsY="Hcal_NcellsY" cellSizeX="Hcal_CellSizeX" cellSizeY="Hcal_CellSizeY"/>
+
+      <type_flags type="1" />
+
+      <envelope vis="InVis">
+        <shape type="Box" dx="Hcal_dim_x/2.0 + env_safety" dy="Hcal_dim_y/2.0 + env_safety"  dz="Hcal_dim_z/2.0 + env_safety" material="Air" />
+        <rotation x="0" y="0" z="0"/>
+        <position x="0" y="0" z="Hcal_FrontFaceZ + Hcal_dim_z/2.0"/>
+      </envelope>
+
+      <layer repeat="Hcal_NLayers" vis="SeeThrough">
+        <slice material = "Steel304L"      thickness = "Hcal_radiator_thickness"                     vis="BlueVis"/>  <!-- vis="BlueVis"   /-->
+        <slice material = "Air"            thickness = "Hcal_tb_airgap_thickness"                    vis="InVis"/>  <!-- vis="YellowVis"   /-->
+        <slice material = "Steel304L"      thickness = "Hcal_steel_casette_thickness"                vis="InVis"/>  <!-- vis="BlueVis"   /-->
+        <slice material = "epoxy"          thickness = "Hcal_electronics_mask_thickness"             vis="InVis"/>  <!-- vis="GreenVis" /-->
+        <slice material = "PCB"            thickness = "Hcal_PCB_thickness"                          vis="InVis"/>  <!-- vis="CyanVis" /-->
+        <slice material = "mylar"          thickness = "Hcal_mylar_anode_thickness"                  vis="InVis"/>  <!-- vis="MagentaVis" /-->
+        <slice material = "graphite"       thickness = "Hcal_graphite_anode_thickness"               vis="InVis"/>  <!-- vis="InVis" /-->
+        <slice material = "FloatGlass"     thickness = "Hcal_glass_anode_thickness"                  vis="InVis"/>  <!-- vis="RedVis" /-->
+        <slice material = "RPCGAS2"        thickness = "Hcal_gas_gap"           sensitive = "yes"    vis="InVis"/>  <!-- vis="YellowVis" /-->
+        <slice material = "FloatGlass"     thickness = "Hcal_glass_cathode_thickness"                vis="InVis"/>  <!-- vis="RedVis" /-->
+        <slice material = "graphite"       thickness = "Hcal_graphite_cathode_thickness"             vis="InVis"/>  <!-- vis="InVis" /-->
+        <slice material = "mylar"          thickness = "Hcal_mylar_cathode_thickness"                vis="InVis"/>  <!-- vis="MagentaVis" /-->
+        <slice material = "Steel304L"      thickness = "Hcal_steel_casette_thickness"                vis="InVis"/>  <!-- vis="BlueVis"   /-->
+        <slice material = "Air"            thickness = "Hcal_tb_airgap_thickness"                    vis="InVis"/>  <!-- vis="YellowVis"   /-->
+      </layer>
+
+      <layer repeat="1" vis="HcalVis">
+        <slice material = "Steel304L"       thickness = "Hcal_radiator_thickness"               vis="BlueVis"   />
+      </layer>
+
+    </detector>
+
+
+  </detectors>
+</lccdd>

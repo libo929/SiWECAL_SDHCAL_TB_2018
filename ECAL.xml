@@ -1,0 +1,126 @@
+<!-- 
+     ECAL parameters for testbeam
+-->
+
+
+<lccdd>
+  <define>
+    <constant name="env_safety" value="0.001*mm"/>
+    
+    <constant name="Ecal_NcellsX" value="32" />
+    <constant name="Ecal_NcellsY" value="32" />
+    <constant name="Ecal_CellSizeX" value="5.5*mm" />
+    <constant name="Ecal_CellSizeY" value="5.5*mm" />
+    <constant name="Ecal_NLayers" value="11"/>
+    <constant name="Ecal_NinstrumentedLayers" value="7"/>
+
+
+    <constant name="Ecal_dim_x" value="Ecal_NcellsX*Ecal_CellSizeX"/>
+    <constant name="Ecal_dim_y" value="Ecal_NcellsY*Ecal_CellSizeY"/>
+    <constant name="Ecal_dim_z" value="Ecal_Thickness"/>
+
+    <constant name="Ecal_LayerDistance" value="15.0*mm"/>
+    <constant name="Ecal_WThickness" value="2.1*mm"/>
+    <constant name="Ecal_AlThickness" value="0.1*mm+1.7*mm"/>
+    <constant name="Ecal_GapThickness" value="0.1*mm"/>
+    <constant name="Ecal_CuShieldThickness" value="0.5*mm"/>
+    <constant name="Ecal_AsicThickness" value="1.1*mm"/>
+    <constant name="Ecal_PcbThickness" value="1.61*mm"/>
+    <constant name="Ecal_GlueThickness" value="0.08*mm"/>
+    <constant name="Ecal_WaferThickness" value="0.5*mm"/>
+    <constant name="Ecal_KaptonThickness" value="0.06*mm"/>
+    <constant name="Ecal_CFThickness" value="0.9*mm"/>
+    
+  </define>
+
+  <readouts>
+    <readout name="SiEcalCollection">
+      <segmentation type="TiledLayerGridXY" 
+		    grid_size_x="Ecal_CellSizeX" grid_size_y="Ecal_CellSizeX" 
+		    offset_x="-Ecal_dim_x/2.0" offset_y="-Ecal_dim_y/2.0" 
+		    identifier_x="I" identifier_y="J" identifier_layer="K"/>
+      <id>system:8,K:8,slice:4,I:8,J:8</id>
+    </readout>
+  </readouts>
+  
+
+  <display>
+    <vis name="EcalVis"       alpha="0.5"  r="0.7" g="0.7"  b="0.0" showDaughters="true"  visible="false"/>
+    <vis name="TungstenVis"   alpha="1.0"  r="1.0" g="0.0"  b="1.0" showDaughters="true"  visible="true"/>
+    <vis name="AirVis"        alpha="1.0"  r="0.0" g="1.0"  b="0.0" showDaughters="true"  visible="false"/>
+    <vis name="GlassVis"      alpha="1.0"  r="0.5" g="0.5"  b="0.0" showDaughters="true"  visible="false"/>
+    <vis name="SiVis"         alpha="1.0"  r="1.0" g="0.0"  b="0.0" showDaughters="true"  visible="true"/>
+    <vis name="AlVis"         alpha="1.0"  r="4.0" g="4.0"  b="1.0" showDaughters="true"  visible="true"/>
+    <vis name="PCBVis"        alpha="1.0"  r="0.0" g="1.0"  b="0.0" showDaughters="true"  visible="true"/>
+    <vis name="CFVis"         alpha="0.5"  r="0.0" g="0.0"  b="0.0" showDaughters="true"  visible="true"/>
+    <vis name="CuVis"         alpha="0.5"  r="1.0" g="0.5"  b="0.0" showDaughters="true"  visible="true"/>
+  </display>
+
+  <detectors>
+
+    <detector name="EcalTestBeam" type="CaloPrototype_v02" vis="EcalVis" id="3" 
+              readout="SiEcalCollection" insideTrackingVolume="false">
+
+      <dimensions x="Ecal_dim_x" y="Ecal_dim_y" z="Ecal_dim_z"/>
+
+      <common_parameters frontFaceZ="Ecal_FrontFaceZ" nCellsX="Ecal_NcellsX" nCellsY="Ecal_NcellsY" cellSizeX="Ecal_CellSizeX" cellSizeY="Ecal_CellSizeY"/> 
+
+      <type_flags type="1" />
+
+      <envelope vis="EcalVis">
+	<shape type="Box" dx="Ecal_dim_x/2.0 + env_safety" dy="Ecal_dim_y/2.0 + env_safety"  dz="Ecal_dim_z/2.0 + env_safety" material="Air" />
+	<rotation x="0" y="0" z="0"/>
+        <position x="0" y="0" z="Ecal_dim_z/2.0"/>
+      </envelope>
+
+      <slice material = "Air"         thickness = "10*mm"   vis="Invisible"/>
+
+      <layer repeat="Ecal_NinstrumentedLayers" vis="EcalVis">
+
+	<slice material = "TungstenDens1910" thickness = "3*Ecal_WThickness"  vis="TungstenVis" />
+
+        <slice material = "Air"         thickness = "0.5*mm"   vis="AirVis"/>
+
+        <slice material = "Al"          thickness = "Ecal_AlThickness"        vis="AlVis"/>
+        <slice material = "Air"         thickness = "Ecal_GapThickness"       vis="AirVis"/>
+        <slice material = "Cu"          thickness = "Ecal_CuShieldThickness"  vis="CuVis" />
+        <slice material = "Air"         thickness = "Ecal_GapThickness"       vis="AirVis"/>
+        <slice material = "Air"         thickness = "Ecal_AsicThickness"      vis="AirVis"/>  <!-- the asic-->
+        <slice material = "PCB"         thickness = "Ecal_PcbThickness"       vis="PCBVis" />
+        <slice material = "Air"         thickness = "Ecal_GlueThickness"      vis="AirVis"/>
+        <slice material = "Si"          thickness = "Ecal_WaferThickness"     vis="SiVis" sensitive = "yes" />
+        <slice material = "Air"         thickness = "Ecal_GlueThickness"      vis="AirVis"/>
+        <slice material = "Cu"          thickness = "Ecal_KaptonThickness"    vis="CuVis" />
+        <slice material = "CarbonFiber" thickness = "Ecal_CFThickness"        vis="CFVis"/>
+
+	<!-- the last layer of air to take up any slack -->
+        <slice material = "Air"         thickness = "Ecal_LayerDistance 
+						     - 3*Ecal_WThickness 
+						     - 0.5*mm 
+						     - Ecal_AlThickness 
+						     - 2*Ecal_GapThickness
+						     - Ecal_CuShieldThickness
+						     - Ecal_AsicThickness
+						     - Ecal_PcbThickness
+						     - 2*Ecal_GlueThickness
+						     - Ecal_WaferThickness
+						     - Ecal_KaptonThickness
+						     - Ecal_CFThickness"      vis="AirVis"/>
+
+      </layer>
+
+      <!-- remaining uninstrumented layers (only tungsten) -->
+
+      <layer repeat="Ecal_NLayers-Ecal_NinstrumentedLayers" vis="EcalVis">
+
+	<slice material = "TungstenDens1910" thickness = "3*Ecal_WThickness"  vis="TungstenVis" />
+	<slice material = "Air"         thickness = "Ecal_LayerDistance - 3*Ecal_WThickness"   vis="AirVis"/>
+
+      </layer>
+
+
+    </detector>
+
+
+  </detectors>
+</lccdd>

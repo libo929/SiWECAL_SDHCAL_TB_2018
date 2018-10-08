@@ -1,0 +1,22 @@
+Setup for DDsim-based simulation of combined SiW ECAL + SDHCAL calorimeters (for September 2018 testbeam)
+This is the updated version for https://svnsrv.desy.de/viewvc/calice/calice_dd_testbeams/2016_SiECAL_SDHCAL
+created by Daniel Jeans and Tibor Kurca, April/May 2016
+
+------------
+
+uses driver (by Shaojun Lu) located in lcgeo/trunk/detector/CaloTB/CaloPrototype_v02.cpp
+
+geometry (materials, dimensions, readout) are defined in:
+MainSetup.xml
+ECAL.xml
+HCAL.xml
+
+-----
+
+to visualise the geometry (ilcsoft: v02-00-01)
+
+> geoDisplay MainSetup.xml
+
+to simulate some events using DDsim/Geant4:
+
+> ddsim --steeringFile run_ddsim.py

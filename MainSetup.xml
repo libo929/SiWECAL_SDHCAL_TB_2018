@@ -1,0 +1,67 @@
+<lccdd xmlns:compact="http://www.lcsim.org/schemas/compact/1.0"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xs:noNamespaceSchemaLocation="http://www.lcsim.org/schemas/compact/1.0/compact.xsd">
+    
+    <info name="SiW-SDHCAL-TB-2016_v02"
+        title="SiW-SDHCAL-TB-2016_v02"
+        author="Shaojun Lu/D. Jeans/T.Kurka"
+        url="flc.desy.de"
+        status="development"
+        version="$Id$">
+        <comment>The compact File for the SiECAL+SDHCAL TB Setup (2016) </comment>
+    </info>
+    
+    <includes>
+        <gdmlFile  ref="${DD4hepINSTALL}/DDDetectors/compact/elements.xml"/>
+        <gdmlFile  ref="${DD4hepINSTALL}/DDDetectors/compact/materials.xml"/>
+        <gdmlFile  ref="${lcgeo_DIR}/ILD/compact/ILD_o2_v01/materials.xml"/>
+    </includes>
+    
+    <plugins>
+      <plugin name="InstallSurfaceManager"/>
+    </plugins>
+
+    <define>
+        <constant name="world_side" value="80000*mm"/>
+        <constant name="world_x" value="world_side"/>
+        <constant name="world_y" value="world_side"/>
+        <constant name="world_z" value="world_side"/>
+        
+	<!-- to limit the amount of MCParticles stored -->
+	<constant name="tracker_region_rmax" value="1*cm" />
+	<constant name="tracker_region_zmax" value="1*cm" />
+
+	<!-- relative positioning of ECAL & HCAL -->
+	<constant name="Ecal_FrontFaceZ" value="0*cm" />
+	<constant name="Ecal_Thickness" value="195*mm"/>
+	<constant name="Ecal_HcalGap" value="20*mm"/>
+	<constant name="Hcal_FrontFaceZ" value="Ecal_Thickness + Ecal_HcalGap" /> <!-- 195mm is thickness of ECAL module (from drawings)-->
+
+    </define>
+    
+    
+    <limits>
+      <limitset name="cal_limits">
+        <limit name="step_length_max" particles="*" value="5.0" unit="mm" />
+      </limitset>
+    </limits>
+    
+    <comment>Common Generic visualization attributes</comment>
+    <display>
+      <vis name="InvisibleNoDaughters"      showDaughters="false" visible="false"/>
+      <vis name="InvisibleWithDaughters"    showDaughters="true" visible="false"/>
+      <vis name="GreenVis"   alpha="1" r="0.0" g="1.0" b="0.0" showDaughters="true" visible="true"/>
+      <vis name="RedVis"     alpha="1" r="1.0" g="0.0" b="0.0" showDaughters="true" visible="true"/>
+      <vis name="BlueVis"    alpha="1" r="0.0" g="0.0" b="1.0" showDaughters="true" visible="true"/>
+      <vis name="InVis"     alpha="1.0"  r="0.0" g="1.0"  b="0.0" showDaughters="true"  visible="false"/>
+
+
+    </display>
+    
+    <comment>Additional design specific material definitions</comment>
+    <include ref="extra_materials.xml"/>    
+    <include ref="ECAL.xml"/> 
+    <include ref="HCAL.xml"/>
+	
+    
+</lccdd>
