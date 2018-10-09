@@ -11,7 +11,7 @@
     <constant name="Ecal_NcellsY" value="32" />
     <constant name="Ecal_CellSizeX" value="5.5*mm" />
     <constant name="Ecal_CellSizeY" value="5.5*mm" />
-    <constant name="Ecal_NLayers" value="11"/>
+    <constant name="Ecal_NLayers" value="10"/>
     <constant name="Ecal_NinstrumentedLayers" value="7"/>
 
 
@@ -70,28 +70,28 @@
       <envelope vis="EcalVis">
 	<shape type="Box" dx="Ecal_dim_x/2.0 + env_safety" dy="Ecal_dim_y/2.0 + env_safety"  dz="Ecal_dim_z/2.0 + env_safety" material="Air" />
 	<rotation x="0" y="0" z="0"/>
-        <position x="0" y="0" z="Ecal_dim_z/2.0"/>
+        <position x="184.75*mm" y="-32.75*mm" z="Ecal_dim_z/2.0"/>
       </envelope>
 
-      <slice material = "Air"         thickness = "10*mm"   vis="Invisible"/>
+      <slice material = "Air"         thickness = "10*mm"   vis="InVis"/>
 
-      <layer repeat="Ecal_NinstrumentedLayers" vis="EcalVis">
+      <layer repeat="Ecal_NLayers" vis="BlueVis">
 
-	<slice material = "TungstenDens1910" thickness = "3*Ecal_WThickness"  vis="TungstenVis" />
-
-        <slice material = "Air"         thickness = "0.5*mm"   vis="AirVis"/>
-
-        <slice material = "Al"          thickness = "Ecal_AlThickness"        vis="AlVis"/>
-        <slice material = "Air"         thickness = "Ecal_GapThickness"       vis="AirVis"/>
-        <slice material = "Cu"          thickness = "Ecal_CuShieldThickness"  vis="CuVis" />
-        <slice material = "Air"         thickness = "Ecal_GapThickness"       vis="AirVis"/>
-        <slice material = "Air"         thickness = "Ecal_AsicThickness"      vis="AirVis"/>  <!-- the asic-->
-        <slice material = "PCB"         thickness = "Ecal_PcbThickness"       vis="PCBVis" />
-        <slice material = "Air"         thickness = "Ecal_GlueThickness"      vis="AirVis"/>
-        <slice material = "Si"          thickness = "Ecal_WaferThickness"     vis="SiVis" sensitive = "yes" />
-        <slice material = "Air"         thickness = "Ecal_GlueThickness"      vis="AirVis"/>
-        <slice material = "Cu"          thickness = "Ecal_KaptonThickness"    vis="CuVis" />
-        <slice material = "CarbonFiber" thickness = "Ecal_CFThickness"        vis="CFVis"/>
+        <slice material = "TungstenDens1910" thickness = "3*Ecal_WThickness"  vis="InVis" />
+	
+	        <slice material = "Air"         thickness = "0.5*mm"   vis="InVis"/>
+	
+	        <slice material = "Al"          thickness = "Ecal_AlThickness"        vis="InVis"/>
+	        <slice material = "Air"         thickness = "Ecal_GapThickness"       vis="InVis"/>
+	        <slice material = "Cu"          thickness = "Ecal_CuShieldThickness"  vis="InVis" />
+	        <slice material = "Air"         thickness = "Ecal_GapThickness"       vis="InVis"/>
+	        <slice material = "Air"         thickness = "Ecal_AsicThickness"      vis="InVis"/>  <!-- the asic-->
+	        <slice material = "PCB"         thickness = "Ecal_PcbThickness"       vis="InVis" />
+	        <slice material = "Air"         thickness = "Ecal_GlueThickness"      vis="InVis"/>
+	        <slice material = "Si"          thickness = "Ecal_WaferThickness"     vis="InVis" sensitive = "yes" />
+	        <slice material = "Air"         thickness = "Ecal_GlueThickness"      vis="InVis"/>
+	        <slice material = "Cu"          thickness = "Ecal_KaptonThickness"    vis="InVis" />
+	        <slice material = "CarbonFiber" thickness = "Ecal_CFThickness"        vis="InVis"/>
 
 	<!-- the last layer of air to take up any slack -->
         <slice material = "Air"         thickness = "Ecal_LayerDistance 
@@ -105,18 +105,20 @@
 						     - 2*Ecal_GlueThickness
 						     - Ecal_WaferThickness
 						     - Ecal_KaptonThickness
-						     - Ecal_CFThickness"      vis="AirVis"/>
+						     - Ecal_CFThickness"      vis="InVis"/>
 
       </layer>
 
       <!-- remaining uninstrumented layers (only tungsten) -->
 
+<!--
       <layer repeat="Ecal_NLayers-Ecal_NinstrumentedLayers" vis="EcalVis">
 
-	<slice material = "TungstenDens1910" thickness = "3*Ecal_WThickness"  vis="TungstenVis" />
-	<slice material = "Air"         thickness = "Ecal_LayerDistance - 3*Ecal_WThickness"   vis="AirVis"/>
+	<slice material = "TungstenDens1910" thickness = "3*Ecal_WThickness"  vis="InVis" />
+	<slice material = "Air"         thickness = "Ecal_LayerDistance - 3*Ecal_WThickness"   vis="InVis"/>
 
       </layer>
+/-->
 
 
     </detector>

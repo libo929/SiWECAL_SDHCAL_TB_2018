@@ -45,7 +45,8 @@
 
     <constant name="Hcal_dim_x" value="Hcal_NcellsX*Hcal_CellSizeX"/>
     <constant name="Hcal_dim_y" value="Hcal_NcellsY*Hcal_CellSizeY"/>
-    <constant name="Hcal_dim_z" value="Hcal_NLayers*Hcal_LayerThickness + Hcal_radiator_thickness"/>
+    <!--constant name="Hcal_dim_z" value="Hcal_NLayers*Hcal_LayerThickness + Hcal_radiator_thickness"/-->
+    <constant name="Hcal_dim_z" value="Hcal_NLayers*Hcal_LayerThickness"/>
 
   </define>
 
@@ -82,8 +83,8 @@
         <position x="0" y="0" z="Hcal_FrontFaceZ + Hcal_dim_z/2.0"/>
       </envelope>
 
-      <layer repeat="Hcal_NLayers" vis="SeeThrough">
-        <slice material = "Steel304L"      thickness = "Hcal_radiator_thickness"                     vis="BlueVis"/>  <!-- vis="BlueVis"   /-->
+      <layer repeat="Hcal_NLayers" vis="GreenVis">
+        <slice material = "Steel304L"      thickness = "Hcal_radiator_thickness"                     vis="InVis"/>  <!-- vis="BlueVis"   /-->
         <slice material = "Air"            thickness = "Hcal_tb_airgap_thickness"                    vis="InVis"/>  <!-- vis="YellowVis"   /-->
         <slice material = "Steel304L"      thickness = "Hcal_steel_casette_thickness"                vis="InVis"/>  <!-- vis="BlueVis"   /-->
         <slice material = "epoxy"          thickness = "Hcal_electronics_mask_thickness"             vis="InVis"/>  <!-- vis="GreenVis" /-->
@@ -99,9 +100,11 @@
         <slice material = "Air"            thickness = "Hcal_tb_airgap_thickness"                    vis="InVis"/>  <!-- vis="YellowVis"   /-->
       </layer>
 
+<!--
       <layer repeat="1" vis="HcalVis">
         <slice material = "Steel304L"       thickness = "Hcal_radiator_thickness"               vis="BlueVis"   />
       </layer>
+/-->
 
     </detector>
 

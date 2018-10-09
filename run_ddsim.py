@@ -4,7 +4,8 @@ from SystemOfUnits import mm, GeV, MeV
 SIM = DD4hepSimulation()
 
 SIM.runType = "batch"
-SIM.numberOfEvents = 3
+#SIM.numberOfEvents = 2000
+SIM.numberOfEvents = 20
 
 SIM.skipNEvents = 0
 SIM.outputFile = "gun_test.slcio"
@@ -18,7 +19,8 @@ SIM.physicsList = "QGSP_BERT"
 SIM.enableDetailedShowerMode=True
 
 SIM.enableGun = True
-SIM.gun.energy = 10*GeV
-SIM.gun.particle = "mu-"
-SIM.gun.position = "0,70,-1000"
+SIM.gun.energy = 80*GeV
+SIM.gun.particle = "e-"
+#SIM.gun.position = "184.+88., -32.-88., -10" # bottom left corner of ECAL
+SIM.gun.position = "184., -32., -1." # center of ECAL
 SIM.gun.direction = "0,0,1"

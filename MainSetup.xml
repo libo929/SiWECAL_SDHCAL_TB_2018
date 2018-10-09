@@ -33,8 +33,9 @@
 
 	<!-- relative positioning of ECAL & HCAL -->
 	<constant name="Ecal_FrontFaceZ" value="0*cm" />
-	<constant name="Ecal_Thickness" value="195*mm"/>
-	<constant name="Ecal_HcalGap" value="20*mm"/>
+	<!--constant name="Ecal_Thickness" value="195*mm"/-->
+	<constant name="Ecal_Thickness" value="150*mm + 0.001*mm"/> <!-- 10 * 15 mm + env_safety/-->
+	<constant name="Ecal_HcalGap" value="70*mm"/>
 	<constant name="Hcal_FrontFaceZ" value="Ecal_Thickness + Ecal_HcalGap" /> <!-- 195mm is thickness of ECAL module (from drawings)-->
 
     </define>
